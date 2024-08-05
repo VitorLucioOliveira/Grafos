@@ -46,7 +46,7 @@
     - "Elemento" do tipo inteiro para armazenar os dados;
     - Um ponteiro "Proximo" para apontar para o proximo nó;
 
-### Classe Pilha
+### Classe Fila
 - Possui o atributo Raiz, que é um ponteiro de Node;
 
 - Possui  metodos para Inscerção e Remoção:
