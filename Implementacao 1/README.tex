@@ -14,12 +14,12 @@
 - Possui 3 metodos para Inscerção:
     - Inserir -> Inserir o elemento em ordem crescente;
     - InserirInicio -> Inserir o elemento no inicio;
-    - InserirFim -> Inserir o elemento no fim;
+    - InserirFim -> Percorre a Lista até achar o ultimo nó sem apontamento e aponta ele para um nó com o elemento criado ;
 
 - Possui 3 metodos para Remoção:
-    - Remover -> Remover um elemento;
-    - RemoverInicio -> Remover o elemento do inicio ;
-    - RemoverFim -> Remover o elemento do fim;
+    - Remover -> Percorre a Lista até achar o nó anterior ao nó do elemento escolhido, reapontando ele para o nó proximo ao nó do elemento escolhido   ;
+    - RemoverInicio -> Muda o valor da raiz para o nó "proximo" que esta apontando  ;
+    - RemoverFim -> Percorre a Lista até achar o anterior ao ultimo nó sem apontamento e desaponta o ultimo nó dele ;
 
 - Possui funções para imprimir todos os elementos da lista e para buscar um elemento específico.
 
@@ -34,8 +34,8 @@
 - Possui o atributo Raiz, que é um ponteiro de Node;
 
 - Possui  metodos para Inscerção e Remoção:
-    - InserirFim -> Inserir o elemento no fim ;
-    - RemoverFim -> Remover o elemento do fim ;
+    - InserirFim -> Percorre a Pilha até achar o ultimo nó sem apontamento e aponta ele para um nó com o elemento criado ;
+    - RemoverFim -> Percorre a Pilha até achar o anterior ao ultimo nó sem apontamento e desaponta o ultimo nó dele ;
 
 - Possui funções para imprimir todos os elementos e para buscar um elemento específico.
 
@@ -50,8 +50,8 @@
 - Possui o atributo Raiz, que é um ponteiro de Node;
 
 - Possui  metodos para Inscerção e Remoção:
-    - InserirFim -> Inserir o elemento no fim ;
-    - RemoverInicio -> Remover o elemento do Inicio ;
+    - InserirFim -> Percorre a Fila até achar o ultimo nó sem apontamento e aponta ele para um nó com o elemento criado ;
+    - RemoverInicio -> Muda o valor da raiz para o nó "proximo" que esta apontando  ;
 
 - Possui funções para imprimir todos os elementos e para buscar um elemento específico.
 

@@ -161,7 +161,7 @@ public:
         }
     }
 
-    void removerFim()
+    int removerFim()
     {
         // Verifica se a lista está vazia
         if (this->raiz == nullptr)

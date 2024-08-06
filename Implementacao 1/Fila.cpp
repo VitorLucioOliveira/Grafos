@@ -63,9 +63,10 @@ public:
         else
         {
             int elemento = raiz->elemento; // salva o elemento
-            Node *tmp = raiz;             // Salva a raiz atual
+
+            
             raiz = raiz->proximo;          // Remove a Raiz
-            delete tmp;                   // Libera a memória
+            
 
             std::cout << "Elemento " << elemento << " removido" << std::endl;
         }
