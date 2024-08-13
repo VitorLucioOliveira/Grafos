@@ -1,0 +1,97 @@
+\documentclass{article}
+\usepackage{listings}
+\usepackage{amsmath} 
+\usepackage{color}
+
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+
+\lstset{ %
+  backgroundcolor=\color{white},   
+  basicstyle=\footnotesize,        
+  breaklines=true,                 
+  commentstyle=\color{mygreen},    
+  keywordstyle=\color{blue},       
+  stringstyle=\color{mymauve},     
+}
+
+\title{Documentação do Código}
+\author{Vitor Lucio de Oliveira}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Introdução}
+Este documento explica o funcionamento do código fornecido, que realiza cálculos relacionados a grafos completos e gera todos os subgrafos possíveis de um grafo completo com um número dado de vértices.
+
+\section{Descrição do Código}
+
+\subsection{Função \texttt{fatorial}}
+Esta função calcula o fatorial de um número inteiro \(x\). O fatorial é calculado recursivamente:
+\begin{itemize}
+    \item Se \(x \leq 1\), a função retorna 1.
+    \item Caso contrário, retorna \(x \times \texttt{fatorial}(x-1)\).
+\end{itemize}
+
+\subsection{Função \texttt{totalArestas}}
+Esta função calcula o número total de arestas possíveis em um subgrafo de \(k\) vértices de um grafo completo. O número de arestas em um grafo completo com \(k\) vértices é dado por \(\frac{k(k-1)}{2}\). O valor retornado é \(2^{\text{arestas}}\), que representa todas as possíveis combinações de arestas.
+
+\subsection{Função \texttt{combinacao}}
+Esta função calcula a combinação \(C(n, p)\), que é o número de maneiras de escolher \(p\) elementos de um conjunto de \(n\) elementos, sem considerar a ordem. A fórmula utilizada é:
+\[
+C(n, p) = \frac{n!}{p!(n-p)!}
+\]
+onde \(n!\) é o fatorial de \(n\), calculado pela função \texttt{fatorial}.
+
+\subsection{Função \texttt{totalSubgrafos}}
+Esta função calcula o número total de subgrafos possíveis para um grafo completo com \(n\) vértices. Para cada número de vértices \(i\) de 1 a \(n\), a função calcula o número de combinações \(C(n, i)\) e o número de arestas \(A(i)\) para esse subgrafo, somando o produto \(C(n, i) \times A(i)\) ao total.
+
+\subsection{Função \texttt{gerarSubgrafos}}
+
+A função \texttt{gerarSubgrafos} tem como objetivo gerar e exibir todos os subgrafos possíveis de um grafo completo com \(n\) vértices. Para compreender melhor o funcionamento dessa função, vamos detalhar cada uma de suas etapas principais:
+
+\begin{enumerate}
+    \item \textbf{Inicialização}:
+    \begin{itemize}
+        \item A função começa declarando uma variável \texttt{subgrafoCount}, inicializada em 0, para manter o controle do número de subgrafos gerados.
+    \end{itemize}
+
+    \item \textbf{Geração de Subconjuntos de Vértices}:
+    \begin{itemize}
+        \item A função utiliza um laço \texttt{for} para iterar sobre todos os possíveis subconjuntos de vértices do grafo completo. 
+        \item O laço itera de \texttt{subGrafo = 1} até \(2^n - 1\), onde \(n\) é o número de vértices. Isso corresponde a todas as combinações possíveis de vértices, exceto o grafo vazio (representado por 0).
+        \item Para cada valor de \texttt{subGrafo}, um vetor \texttt{vertices} é criado para armazenar os vértices presentes no subconjunto correspondente. 
+        \item O laço interno verifica se cada vértice \(i\) (de 0 a \(n-1\)) pertence ao subconjunto atual. Isso é feito através da expressão \texttt{subGrafo \& (1 << i)}, que checa se o \(i\)-ésimo bit de \texttt{subGrafo} está definido.
+        \item Se o vértice pertence ao subconjunto, ele é adicionado ao vetor \texttt{vertices}.
+    \end{itemize}
+
+    \item \textbf{Geração de Subgrafos a Partir dos Subconjuntos}:
+    \begin{itemize}
+        \item Após determinar os vértices presentes no subconjunto atual, a função calcula o número total de arestas possíveis entre esses vértices, utilizando a função \texttt{totalArestas}.
+        \item Em seguida, a função itera sobre todas as combinações possíveis de arestas para o conjunto atual de vértices. Isso é feito através de um laço que varia de \texttt{arestas = 0} até \texttt{numArestas - 1}.
+        \item Para cada combinação de arestas, a função exibe os vértices presentes e as arestas que formam o subgrafo atual.
+    \end{itemize}
+
+    \item \textbf{Exibição do Subgrafo}:
+    \begin{itemize}
+        \item Para cada subgrafo gerado, a função incrementa o contador \texttt{subgrafoCount} e exibe uma linha no formato: 
+        \[
+        \texttt{Subgrafo X: Vértices \{...\} Arestas \{(...)\}}
+        \]
+        onde \(X\) é o número do subgrafo, \{...\} é o conjunto de vértices presentes, e \{(...)\} é o conjunto de arestas entre esses vértices.
+        \item A exibição das arestas é feita através de dois laços aninhados que percorrem todos os pares de vértices no subconjunto atual. Se o par de vértices \(i\) e \(j\) forma uma aresta no subgrafo atual, ela é exibida.
+    \end{itemize}
+\end{enumerate}
+
+A função \texttt{gerarSubgrafos} é eficiente em termos de cobertura de todos os subgrafos possíveis, mas o tempo de execução cresce exponencialmente com o número de vértices, devido ao número de combinações possíveis de vértices e arestas. Essa abordagem garante que todos os subgrafos, desde os menores com apenas um vértice até o grafo completo, sejam gerados e exibidos.
+
+\subsection{Função \texttt{main}}
+A função principal solicita ao usuário o número de vértices \(n\) do grafo completo. Em seguida, chama a função \texttt{gerarSubgrafos} para gerar e exibir todos os subgrafos possíveis.
+
+\section{Conclusão}
+O código apresentado permite a geração de todos os subgrafos possíveis de um grafo completo com \(n\) vértices. As funções auxiliares implementadas facilitam o cálculo de fatorial, combinações, e o total de arestas, proporcionando uma solução completa para a tarefa proposta.
+
+\end{document}
