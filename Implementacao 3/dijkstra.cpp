@@ -1,38 +1,40 @@
 #include <iostream>
 #include <vector>
 #include <queue>
+#include <algorithm> // for std::reverse
 #define INT_MAX 1000000000
 using namespace std;
 
 int main(){
    
-    int N, M; //vertices, arestas
+    int N, M , destino; //vertices, arestas
 
-    cin >> N >> M; //leitura de vertices e arestas 
+    cin >> N >> M >> destino; //leitura de vertices e arestas 
 
     vector<vector<pair<int,int>>> G(N); //grafo
 
     for(int i = 0; i < M; i++){
         int v, u, w; //u e v são os vertices e w é o peso da aresta v-->u
         cin >> v >> u >> w;
-        v--; u--; //ajustando para o 0-based
         G[v].push_back({u,w});//direcionando  v-->u e armazenando o peso w
     }
 
 
 
-    priority_queue<pair<int,int>> dijkstra; //fila de prioridade (vertice, distancia)
+    vector<int> antecessores(N, -1); //vetor de antecessores
+    vector<int> caminho; //vetor de caminho
+
+    priority_queue<pair<int,int>> fila_prioridade; //fila de prioridade (vertice, distancia)
 
     vector<int> dist(N, INT_MAX); //vetor de distancias
     dist[0] = 0; //distancia do vertice 0 para ele mesmo é 0
-    dijkstra.push({0,0}); //inserindo o vertice 0 na fila de prioridade
+    fila_prioridade.push({0,0}); //inserindo o vertice 0 na fila de prioridade
 
-    while(!dijkstra.empty()){
-        int v = dijkstra.top().second; //vertice
-        int d = -dijkstra.top().first; //distancia em negativo prra começar do menor
-        dijkstra.pop(); //removendo o vertice da fila de prioridade
+    while(!fila_prioridade.empty()){
+        int v = fila_prioridade.top().second; //vertice
+        fila_prioridade.pop(); //removendo o vertice da fila de prioridade
 
-        if(d != dist[v]) continue;//se a distancia armazenada for diferente da distancia atual, ignore
+        if(v == destino) break; //se o vertice atual for o ultimo, pare
 
         for(auto edge : G[v]){ //para cada vertice adjacente a v
             int u = edge.first; //vertice adjacente
@@ -40,14 +42,31 @@ int main(){
             
             if( dist[u] > dist[v] + cost){ //se a distancia do vertice adjacente for maior que a distancia do vertice atual + o peso da aresta
                 dist[u] = dist[v] + cost; //atualize a distancia do vertice adjacente
-                dijkstra.push({-dist[u], u}); //insira o vertice adjacente na fila de prioridade
+                
+                fila_prioridade.push({-dist[u], u}); //insira o vertice adjacente na fila de prioridade
+
+                antecessores[u] = v; //atualize o antecessor do vertice adjacente
             }
            
         }
     }
 
+    while (destino != -1){ //enquanto o destino não for -1
+        caminho.push_back(destino); //insira o destino no vetor de caminho
+        destino = antecessores[destino]; //atualize o destino para o antecessor do destino
+    }
+
+    reverse(caminho.begin(), caminho.end()); //inverta o vetor de caminho
+    
+    cout << "Caminho: ";
+    for( int d: caminho){
+        cout << d << " ";
+    }
+    cout << endl;
+
+    cout << "Distancias: ";
     for( int d: dist){
-        cout << (d == INT_MAX ? -1 : d) << " ";
+        cout << (d == INT_MAX ? "∞" : to_string(d)) << " ";
     }
     cout << endl;
 }
