@@ -33,23 +33,23 @@ int main()
     std::priority_queue<pair<int, int>, std::vector<pair<int, int>>, std::greater<pair<int, int>>> fila_prioridade; // fila de prioridade (vertice, distancia)
 
     vector<int> dist(N, INT_MIN); // vetor de distancias
-    dist[0] = INT_MAX;            // distancia do vertice 0 para ele mesmo é 0
+    dist[0] = INT_MAX;            // distancia do vertice  0 para ele mesmo é infinito
     fila_prioridade.push({0, 0}); // inserindo o vertice 0 na fila de prioridade
 
     while (!fila_prioridade.empty())
     {
         int v = fila_prioridade.top().second; // vertice
-        fila_prioridade.pop();                // removendo o vertice da fila de prioridade
+        fila_prioridade.pop(); // removendo o vertice da fila de prioridade
 
-        for (auto vertice : Grafo[v])
-        {                              // para cada vertice adjacente a v
-            int u = vertice.first;     // vertice adjacente
+        for (auto vertice : Grafo[v])// para cada vertice adjacente a v
+        {                              
+            int u = vertice.first; // vertice adjacente
             int peso = vertice.second; // peso da aresta v-->u
 
-            if (dist[u] < min(peso, dist[v]))
+            if (dist[u] < min(peso, dist[v]))// se a distancia do vertice adjacente for menor que a distancia do menor entre o peso da aresta e a distancia do vertice atual
             {
-                dist[u] = min(peso, dist[v]);
-                fila_prioridade.push({dist[u], u});
+                dist[u] = min(peso, dist[v]);// atualize a distancia do vertice adjacente
+                fila_prioridade.push({dist[u], u});// insire o vertice adjacente na fila de prioridade
 
                 antecessores[u] = v; // atualize o antecessor do vertice adjacente
             }

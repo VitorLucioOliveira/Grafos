@@ -47,10 +47,10 @@ int main()
             int u = vertice.first;     // vertice adjacente
             int peso = vertice.second; // peso da aresta v-->u
 
-            if (dist[u] > max(peso, dist[v]))
+            if (dist[u] > max(peso, dist[v]))//se a distancia do vertice adjacente for maior que a distancia do maior entre o peso da aresta e a distancia do vertice atual
             {
-                dist[u] = max(peso, dist[v]);
-                fila_prioridade.push({dist[u], u});
+                dist[u] = max(peso, dist[v]);// atualize a distancia do vertice adjacente
+                fila_prioridade.push({dist[u], u});// insire o vertice adjacente na fila de prioridade
 
                 antecessores[u] = v; // atualize o antecessor do vertice adjacente
             }

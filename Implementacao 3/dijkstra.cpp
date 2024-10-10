@@ -19,8 +19,6 @@ int main(){
         G[v].push_back({u,w});//direcionando  v-->u e armazenando o peso w
     }
 
-
-
     vector<int> antecessores(N, -1); //vetor de antecessores
     vector<int> caminho; //vetor de caminho
 
@@ -43,7 +41,7 @@ int main(){
             if( dist[u] > dist[v] + cost){ //se a distancia do vertice adjacente for maior que a distancia do vertice atual + o peso da aresta
                 dist[u] = dist[v] + cost; //atualize a distancia do vertice adjacente
                 
-                fila_prioridade.push({-dist[u], u}); //insira o vertice adjacente na fila de prioridade
+                fila_prioridade.push({-dist[u], u}); //insire o vertice adjacente na fila de prioridade  com distâncias negativas para se aproveitar da prioridade da fila de prioridade de menor para maior
 
                 antecessores[u] = v; //atualize o antecessor do vertice adjacente
             }
@@ -56,7 +54,7 @@ int main(){
         destino = antecessores[destino]; //atualize o destino para o antecessor do destino
     }
 
-    reverse(caminho.begin(), caminho.end()); //inverta o vetor de caminho
+    reverse(caminho.begin(), caminho.end()); //inverta o vetor de caminho para ser do inicio ao fim
     
     cout << "Caminho: ";
     for( int d: caminho){
