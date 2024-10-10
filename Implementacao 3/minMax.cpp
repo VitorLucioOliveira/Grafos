@@ -34,7 +34,7 @@ int main()
     priority_queue<pair<int, int>> fila_prioridade; // fila de prioridade (vertice, distancia)
 
     vector<int> dist(N, INT_MAX); // vetor de distancias
-    dist[0] = INT_MIN;            // distancia do vertice 0 para ele mesmo é 0
+    dist[0] = INT_MIN;            // distancia do vertice é -infinito
     fila_prioridade.push({0, 0}); // inserindo o vertice 0 na fila de prioridade
 
     while (!fila_prioridade.empty())
@@ -42,8 +42,8 @@ int main()
         int v = fila_prioridade.top().second; // vertice
         fila_prioridade.pop();                // removendo o vertice da fila de prioridade
 
-        for (auto vertice : Grafo[v])
-        {                              // para cada vertice adjacente a v
+        for (auto vertice : Grafo[v])// para cada vertice adjacente a v
+        {                              
             int u = vertice.first;     // vertice adjacente
             int peso = vertice.second; // peso da aresta v-->u
 
@@ -57,8 +57,8 @@ int main()
         }
     }
 
-    while (destino != -1)
-    {                                    // enquanto o destino não for -1
+    while (destino != -1)// enquanto o destino não for -1
+    {                                    
         caminho.push_back(destino);      // insira o destino no vetor de caminho
         destino = antecessores[destino]; // atualize o destino para o antecessor do destino
     }

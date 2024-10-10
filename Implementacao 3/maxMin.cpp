@@ -56,8 +56,8 @@ int main()
         }
     }
 
-    while (destino != -1)
-    {                                    // enquanto o destino não for -1
+    while (destino != -1)// enquanto o destino não for -1
+    {                                    
         caminho.push_back(destino);      // insira o destino no vetor de caminho
         destino = antecessores[destino]; // atualize o destino para o antecessor do destino
     }
